@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class OptionsParser {
@@ -14,7 +15,7 @@ public class OptionsParser {
             "-d n       wyświetla spis treści działu\n" +
             "-h         wyświetla ten tekst\n";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ArrayList<Option> options = new ArrayList<>();
         try {
             for (int i = 0; i < args.length; i++) {
@@ -67,5 +68,10 @@ public class OptionsParser {
             System.out.print(help);
             return;
         }
+        OptionsChecker checker = new OptionsChecker();
+        int result = checker.CheckOptions(options);
+        if (result != 0) return;
+        Parser parser = new Parser();
+        parser.openFile();
     }
 }
