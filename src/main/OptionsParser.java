@@ -69,9 +69,6 @@ public class OptionsParser {
             return;
         }
         OptionsChecker checker = new OptionsChecker();
-        int result = checker.CheckOptions(options);
-        if (result != 0) return;
-        Parser parser = new Parser();
-        parser.openFile();
+        checker.CheckOptions(options);
     }
 }
