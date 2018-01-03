@@ -38,10 +38,12 @@ public class Node {
     @Override
     public String toString() {
         String result;
-        if (level == 0) {
-            result = "Dział " + number + ". ";
+        if (level == -1) {
+            result = "";
+        } else if (level == 0) {
+            result = "Dział " + number + " ";
         } else if (level == 1) {
-            result = "Rozdział " + number + ". ";
+            result = "Rozdział " + number + " ";
         } else if (level == 2) {
             result = "Art. " + number + ". ";
         } else if (level == 3) {
