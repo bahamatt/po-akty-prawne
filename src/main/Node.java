@@ -34,6 +34,9 @@ public class Node {
     public Node getParent() {
         return parent;
     }
+    public String getNumber() {
+        return number;
+    }
 
     @Override
     public String toString() {

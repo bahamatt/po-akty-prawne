@@ -45,6 +45,7 @@ public class OptionsChecker {
                 return;
             }
         } else {
+            // TODO: Zmienić sprawdzanie opcji bo punkt nie musi być pod ustępem
             boolean article = false;
             boolean paragraph = false;
             boolean point = false;

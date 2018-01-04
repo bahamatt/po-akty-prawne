@@ -11,6 +11,8 @@ public class OptionsParser {
             "-p n       wyświetla punkt\n" +
             "-l n       wyświetla literę\n" +
             "-r n       wyświetla rozdział\n" +
+            "-rd n      wybiera dział z którego wyświetlić rozdział, używany tylko razem z -r" +
+            //TODO: Wstawić sprawdzanie tej opcji
             "-s         wyświetla spis treści\n" +
             "-d n       wyświetla spis treści działu\n" +
             "-h         wyświetla ten tekst\n";

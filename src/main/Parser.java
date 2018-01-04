@@ -39,6 +39,7 @@ public class Parser {
                     current.addSubNode(node);
                     current = node;
                 }
+                // TODO: Wyswietlenie tytułów
                 if (line.matches("Art\\. .*")) {
                     Node node = newNode(2, line.substring(5, line.indexOf(".", 5)));
                     current.addSubNode(node);
@@ -62,7 +63,7 @@ public class Parser {
                     current = node;
                     line = line.substring(line.indexOf(")") + 2);
                 }
-                if (line.matches("[a-z]{1}\\).*")) {
+                if (line.matches("[a-z]\\).*")) {
                     Node node = newNode(5, line.substring(0, line.indexOf(")")));
                     current.addSubNode(node);
                     current = node;
@@ -73,7 +74,8 @@ public class Parser {
                 }
                 line = br.readLine();
             }
-            read(main);
+            Printer printer = new Printer();
+            printer.printText(main,options);
         }
     }
 
