@@ -15,6 +15,7 @@ public class Parser {
             }
             Node main = new Node(null, -1, null);
             current = main;
+            boolean newChapter = false;
             while (line != null) {
                 if (line.matches("©Kancelaria Sejmu.*")) {
                     line = br.readLine();
@@ -35,15 +36,19 @@ public class Parser {
                 }
                 if (line.matches("Rozdział .*")) {
                     Node node = newNode(1, line.substring(9));
-                    line = "";
+                    line = br.readLine();
                     current.addSubNode(node);
                     current = node;
+                    newChapter = true;
                 }
-                if (line.matches("[A-Z\\s]*")) {
+                if (line.matches("[A-ZĄĘÓŚŁŻŹĆŃ,.\\s]*") && !newChapter) {
                     Node node = newNode(2, "");
                     current.addSubNode(node);
                     current = node;
                     //TODO: Prawidłowe wypisywanie tytułów
+                }
+                if (line.matches("[A-ZĄĘÓŚŁŻŹĆŃ,.\\s]*") && newChapter) {
+                    newChapter = false;
                 }
                 if (line.matches("Art\\. .*")) {
                     Node node = newNode(3, line.substring(5, line.indexOf(".", 5)));
