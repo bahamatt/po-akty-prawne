@@ -19,7 +19,7 @@ public class Node {
         } else if (this.content.endsWith(" ")) {
             this.content += content;
         } else {
-            this.content = this.content +  " " + content;
+            this.content = this.content + " " + content;
         }
     }
 
@@ -34,6 +34,7 @@ public class Node {
     public Node getParent() {
         return parent;
     }
+
     public String getNumber() {
         return number;
     }
@@ -41,20 +42,28 @@ public class Node {
     @Override
     public String toString() {
         String result;
-        if (level == -1) {
-            result = "";
-        } else if (level == 0) {
-            result = "Dział " + number + " ";
-        } else if (level == 1) {
-            result = "Rozdział " + number + " ";
-        } else if (level == 2) {
-            result = "";
-        } else if (level == 3) {
-            result = "Art. " + number + ". ";
-        } else if (level == 4) {
-            result = number + ". ";
-        } else {
-            result = number + ") ";
+        switch (level) {
+            case -1:
+                result = "";
+                break;
+            case 0:
+                result = "Dział " + number + " ";
+                break;
+            case 1:
+                result = "Rozdział " + number + " ";
+                break;
+            case 2:
+                result = "";
+                break;
+            case 3:
+                result = "Art. " + number + ". ";
+                break;
+            case 4:
+                result = number + ". ";
+                break;
+            default:
+                result = number + ") ";
+                break;
         }
         return result + content;
     }

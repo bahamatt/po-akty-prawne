@@ -1,13 +1,11 @@
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Parser {
     private Node current;
 
-    public Node openFile(String fileName, ArrayList<Option> options) throws IOException {
+    public Node openFile(String fileName) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line = br.readLine();
             while (line != null && !line.matches("Rozdział.*|DZIAŁ.*")) {
@@ -45,7 +43,6 @@ public class Parser {
                     Node node = newNode(2, "");
                     current.addSubNode(node);
                     current = node;
-                    //TODO: Prawidłowe wypisywanie tytułów
                 }
                 if (line.matches("[A-ZĄĘÓŚŁŻŹĆŃ,.\\s]*") && newChapter) {
                     newChapter = false;
@@ -96,12 +93,4 @@ public class Parser {
         return new Node(current, level, number);
     }
 
-    private void read(Node node) {
-        if (node != null) {
-            System.out.println(node.toString());
-            for (Node subNode : node.getSubNodes()) {
-                read(subNode);
-            }
-        }
-    }
 }

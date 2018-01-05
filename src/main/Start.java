@@ -13,7 +13,7 @@ public class Start {
         Parser parser = new Parser();
         Node main;
         try {
-            main = parser.openFile(fileName, options);
+            main = parser.openFile(fileName);
         } catch (IOException e) {
             System.out.println("Błąd otwarcia pliku");
             return;
