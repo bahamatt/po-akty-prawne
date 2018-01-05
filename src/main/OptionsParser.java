@@ -16,7 +16,7 @@ public class OptionsParser {
             "-d n       wyświetla spis treści działu\n" +
             "-h         wyświetla ten tekst\n";
 
-    public static void main(String[] args) throws IOException {
+    public ArrayList<Option> parseOptions(String[] args) {
         ArrayList<Option> options = new ArrayList<>();
         try {
             for (int i = 0; i < args.length; i++) {
@@ -71,9 +71,8 @@ public class OptionsParser {
         } catch (ArrayIndexOutOfBoundsException ex) {
             System.out.println(badOptions);
             System.out.print(help);
-            return;
+            return null;
         }
-        OptionsChecker checker = new OptionsChecker();
-        checker.CheckOptions(options);
+        return options;
     }
 }

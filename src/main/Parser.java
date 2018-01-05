@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Parser {
     private Node current;
 
-    public void openFile(String fileName, ArrayList<Option> options) throws IOException {
+    public Node openFile(String fileName, ArrayList<Option> options) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line = br.readLine();
             while (line != null && !line.matches("Rozdział.*|DZIAŁ.*")) {
@@ -84,8 +84,8 @@ public class Parser {
                 }
                 line = br.readLine();
             }
-            Printer printer = new Printer();
-            printer.printText(main, options);
+            return main;
+
         }
     }
 

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class OptionsChecker {
-    public void CheckOptions(ArrayList<Option> options) {
+    public String CheckOptions(ArrayList<Option> options) {
         boolean file = false;
         String fileName = null;
         Iterator<Option> iter = options.iterator();
@@ -12,16 +12,16 @@ public class OptionsChecker {
             if (option.optionType == OptionType.Unknown) {
                 System.out.println(OptionsParser.badOptions);
                 System.out.print(OptionsParser.help);
-                return;
+                return null;
             }
             if (option.optionType == OptionType.Help) {
                 System.out.print(OptionsParser.help);
-                return;
+                return null;
             }
             if (option.optionType == OptionType.FileName) {
                 if (file) {
                     System.out.println("Podano kilka plików do wczytania");
-                    return;
+                    return null;
                 } else {
                     file = true;
                     fileName = option.value;
@@ -32,12 +32,12 @@ public class OptionsChecker {
         if (!file) {
             System.out.println("Nie podano pliku do wczytania");
             System.out.print(OptionsParser.help);
-            return;
+            return null;
         }
         if (options.isEmpty()) {
             System.out.println("Nie podano elementu do wyświetlenia");
             System.out.print(OptionsParser.help);
-            return;
+            return null;
         } else if (options.size() == 1) {
             OptionType optionType = options.get(0).optionType;
             if (!(optionType == OptionType.Article || optionType == OptionType.ArticleRange ||
@@ -45,7 +45,7 @@ public class OptionsChecker {
                     optionType == OptionType.Chapter)) {
                 System.out.println(OptionsParser.badOptions);
                 System.out.print(OptionsParser.help);
-                return;
+                return null;
             }
         } else {
             boolean article = false;
@@ -69,22 +69,17 @@ public class OptionsChecker {
                     default:
                         System.out.println(OptionsParser.badOptions);
                         System.out.print(OptionsParser.help);
-                        return;
+                        return null;
                 }
             }
             if (!article) {
                 if (!section || !chapter) {
                     System.out.println(OptionsParser.badOptions);
                     System.out.print(OptionsParser.help);
-                    return;
+                    return null;
                 }
             }
         }
-        Parser parser = new Parser();
-        try {
-            parser.openFile(fileName, options);
-        } catch (IOException e) {
-            System.out.println("Błąd otwarcia pliku");
-        }
+        return fileName;
     }
 }
