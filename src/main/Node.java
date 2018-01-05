@@ -48,8 +48,10 @@ public class Node {
         } else if (level == 1) {
             result = "Rozdział " + number + " ";
         } else if (level == 2) {
-            result = "Art. " + number + ". ";
+            result = "";
         } else if (level == 3) {
+            result = "Art. " + number + ". ";
+        } else if (level == 4) {
             result = number + ". ";
         } else {
             result = number + ") ";

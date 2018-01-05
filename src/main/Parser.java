@@ -39,9 +39,14 @@ public class Parser {
                     current.addSubNode(node);
                     current = node;
                 }
-                // TODO: Wyswietlenie tytułów
+                if (line.matches("[A-Z\\s]*")) {
+                    Node node = newNode(2, "");
+                    current.addSubNode(node);
+                    current = node;
+                    //TODO: Prawidłowe wypisywanie tytułów
+                }
                 if (line.matches("Art\\. .*")) {
-                    Node node = newNode(2, line.substring(5, line.indexOf(".", 5)));
+                    Node node = newNode(3, line.substring(5, line.indexOf(".", 5)));
                     current.addSubNode(node);
                     current = node;
                     int index = line.indexOf(".", 5) + 2;
@@ -52,19 +57,19 @@ public class Parser {
                     }
                 }
                 if (line.matches("\\d+[a-z]?\\..*")) {
-                    Node node = newNode(3, line.substring(0, line.indexOf(".")));
+                    Node node = newNode(4, line.substring(0, line.indexOf(".")));
                     current.addSubNode(node);
                     current = node;
                     line = line.substring(line.indexOf(".") + 2);
                 }
                 if (line.matches("\\d+[a-z]?\\).*")) {
-                    Node node = newNode(4, line.substring(0, line.indexOf(")")));
+                    Node node = newNode(5, line.substring(0, line.indexOf(")")));
                     current.addSubNode(node);
                     current = node;
                     line = line.substring(line.indexOf(")") + 2);
                 }
                 if (line.matches("[a-z]\\).*")) {
-                    Node node = newNode(5, line.substring(0, line.indexOf(")")));
+                    Node node = newNode(6, line.substring(0, line.indexOf(")")));
                     current.addSubNode(node);
                     current = node;
                     line = line.substring(line.indexOf(")") + 2);
@@ -75,7 +80,7 @@ public class Parser {
                 line = br.readLine();
             }
             Printer printer = new Printer();
-            printer.printText(main,options);
+            printer.printText(main, options);
         }
     }
 
@@ -86,10 +91,10 @@ public class Parser {
         return new Node(current, level, number);
     }
 
-    private void read(Node node){
-        if(node != null) {
+    private void read(Node node) {
+        if (node != null) {
             System.out.println(node.toString());
-            for(Node subNode: node.getSubNodes()) {
+            for (Node subNode : node.getSubNodes()) {
                 read(subNode);
             }
         }

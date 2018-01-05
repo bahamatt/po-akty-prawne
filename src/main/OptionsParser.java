@@ -11,8 +11,7 @@ public class OptionsParser {
             "-p n       wyświetla punkt\n" +
             "-l n       wyświetla literę\n" +
             "-r n       wyświetla rozdział\n" +
-            "-rd n      wybiera dział z którego wyświetlić rozdział, używany tylko razem z -r" +
-            //TODO: Wstawić sprawdzanie tej opcji
+            "-rd n      wybiera dział z którego wyświetlić rozdział, używany tylko razem z -r\n" +
             "-s         wyświetla spis treści\n" +
             "-d n       wyświetla spis treści działu\n" +
             "-h         wyświetla ten tekst\n";
@@ -48,6 +47,10 @@ public class OptionsParser {
                         break;
                     case "-r":
                         options.add(new Option(OptionType.Chapter, args[i + 1]));
+                        i++;
+                        break;
+                    case "-rd":
+                        options.add(new Option(OptionType.Section, args[i + 1]));
                         i++;
                         break;
                     case "-s":

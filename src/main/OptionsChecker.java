@@ -1,11 +1,14 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class OptionsChecker {
     public void CheckOptions(ArrayList<Option> options) {
         boolean file = false;
         String fileName = null;
-        for (Option option : options) {
+        Iterator<Option> iter = options.iterator();
+        while (iter.hasNext()) {
+            Option option = iter.next();
             if (option.optionType == OptionType.Unknown) {
                 System.out.println(OptionsParser.badOptions);
                 System.out.print(OptionsParser.help);
@@ -23,7 +26,7 @@ public class OptionsChecker {
                     file = true;
                     fileName = option.value;
                 }
-                options.remove(option);
+                iter.remove();
             }
         }
         if (!file) {
@@ -45,24 +48,23 @@ public class OptionsChecker {
                 return;
             }
         } else {
-            // TODO: Zmienić sprawdzanie opcji bo punkt nie musi być pod ustępem
             boolean article = false;
-            boolean paragraph = false;
-            boolean point = false;
-            boolean letter = false;
+            boolean section = false;
+            boolean chapter = false;
             for (Option option: options) {
                 switch (option.optionType){
                     case Article:
                         article = true;
                         break;
                     case Paragraph:
-                        paragraph = true;
-                        break;
                     case Point:
-                        point = true;
-                        break;
                     case Letter:
-                        letter = true;
+                        break;
+                    case Section:
+                        section = true;
+                        break;
+                    case Chapter:
+                        chapter = true;
                         break;
                     default:
                         System.out.println(OptionsParser.badOptions);
@@ -70,10 +72,12 @@ public class OptionsChecker {
                         return;
                 }
             }
-            if (!article || !paragraph || (options.size() > 2 && !point) || (options.size() == 4 && !letter)) {
-                System.out.println(OptionsParser.badOptions);
-                System.out.print(OptionsParser.help);
-                return;
+            if (!article) {
+                if (!section || !chapter) {
+                    System.out.println(OptionsParser.badOptions);
+                    System.out.print(OptionsParser.help);
+                    return;
+                }
             }
         }
         Parser parser = new Parser();
